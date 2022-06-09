@@ -32,12 +32,23 @@
 заданную величину;
 	void Print (); - метод выводит на экран прямоугольник.
 
-	Статус: Подходит ли такой метод контроля ошибок ? (в виде функции за классом).
+	Статус: Подходит ли такой метод контроля ошибок ? (в виде функции за классом). Все протестировать, включая ф-ю выдачи ошибок.
 	О задании: 2:54:30.
 
 	Возможные доработки:
 	* предусмотреть не выход за грани координат
 	* предусмотреть предел сужения до квадрата с минимальными точками координат
+	Данные для тестирования
+	3
+	2
+	8
+	5
+	по функциям
+	3
+	3
+	после обработки пряямоугольника вышедшего за пределы оси координат, обнуляются поля,
+	и на следующую функцию декреас выхожу с нулевыми полями - исправить.(возможно предложить пользователю ввод новых координат)
+	Сымитировать еще раз все ошибки из функции поиска ошибок.
 */
 
 #include <iostream>
@@ -59,10 +70,10 @@ int main()
 		cout << "Enter the coordinates of the rectangle"
 			<< "\nIn that order: "
 			<< "\nleft_X -> top_Y -> right_X -> bottom_Y :\n";
-		cin >> left_X
-			>> top_Y
-			>> right_X
-			>> bottom_Y;
+		cin >> left_X;
+		cin >> top_Y;
+		cin >> right_X;
+		cin >> bottom_Y;
 		cRect.SetRect(left_X, top_Y, right_X, bottom_Y);
 		cRect.NormalizeRect();
 		cout << "\nNow the coordinates of the rectangle are: ";
@@ -101,10 +112,10 @@ int main()
 			<< "\nHow much to increase the size of the rectangle?\n"
 			<< "In that order: "
 			<< "\nleft_X -> top_Y -> right_X -> bottom_Y :\n";
-		cin >> left_X
-			>> top_Y
-			>> right_X
-			>> bottom_Y;
+		cin >> left_X;
+		cin >> top_Y;
+		cin >> right_X;
+		cin >> bottom_Y;
 		cRect.InflateRect(left_X, top_Y, right_X, bottom_Y);
 		IsItCorrect(cRect);
 		cout << "The new rectangle coordinates are : ";
@@ -114,10 +125,10 @@ int main()
 		cout << "\nHow much to decrease the size of the rectangle?\n"
 			<< "In that order : "
 			<< "\nleft_X -> top_Y -> right_X -> bottom_Y :\n";
-		cin >> left_X
-			>> top_Y
-			>> right_X
-			>> bottom_Y;
+		cin >> left_X;
+		cin >> top_Y;
+		cin >> right_X;
+		cin >> bottom_Y;
 		cRect.DeflateRect(left_X, top_Y, right_X, bottom_Y);
 		IsItCorrect(cRect);
 		cout << "The new rectangle coordinates are : ";
@@ -127,8 +138,8 @@ int main()
 		cout << "\nEnter the amount you want to shift the rectangle :"
 			<< "\nIn that order : "
 			<< "\n\"X\" -> \"Y\" :\n";
-		cin >> x
-			>> y;
+		cin >> x;
+		cin >> y;
 		cRect.OffsetRect(x, y);
 		IsItCorrect(cRect);
 		cout << "The new rectangle coordinates are : ";

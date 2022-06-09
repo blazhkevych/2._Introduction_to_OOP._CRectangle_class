@@ -127,9 +127,10 @@ void IsItCorrect(CRectangle& cRect)
 	{
 		cRect.SetRectEmpty();
 		cout << "\nError. The rectangle is outside the coordinate axis, coordinates reset !" << endl;
+		return;
 	}
 	// Ошибка. Уменьшенный прямоугольник не может быть меньше 1 х 1 х 1 х 1 !
-	if (cRect.getRightX() - cRect.getLeftX() < 1 || cRect.getBottomY() - cRect.getTopY())
+	if (cRect.getRightX() - cRect.getLeftX() < 1 || cRect.getBottomY() - cRect.getTopY() < 1)
 	{
 		cRect.SetRectEmpty();
 		cout << "\n// Error. The reduced rectangle cannot be smaller than 1 x 1 x 1 x 1, coordinates reset !" << endl;
