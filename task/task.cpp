@@ -1,21 +1,44 @@
 /*
+			Введение в ООП. Класс CRectangle.
+	Разработать класс CRectangle. Обеспечить класс конструктором, а также всеми
+необходимыми методами-аксессорами. Предусмотреть в классе методы для
+нормализации прямоугольника, перемещения прямоугольника, изменения размера
+прямоугольника, вычисления площади прямоугольника и др.
+Данные-члены (поля):
+	left - левая сторона;
+	right – правая сторона;
+	top – верхняя сторона;
+	bottom - нижняя сторона
+			Функции-члены (методы):
+	CRect( ); - конструктор по умолчанию;
+	CRect( int l, int t, int r, int b ); - конструктор с параметрами (лево, верх,
+право, низ);
+	int Width( ); - ширина прямоугольника;
+	int Height( ); - высота прямоугольника;
+	bool IsRectNull( ); - метод возвращает истину, если все параметры = 0;
+	bool PtInRect( int x, int y ); - метод возвращает истину, если точка лежит
+внутри прямоугольника;
+	void SetRect( int x1, int y1, int x2, int y2 ); - установка размера и координат;
+	void SetRectEmpty( ); - установка всех координат прямоугольника в 0;
+	void InflateRect( int l, int t, int r, int b ); - метод увеличивает размер
+прямоугольника, двигая границы относительно центральной точки;
+	void DeflateRect( int l, int t, int r, int b ); - метод уменьшает размер
+прямоугольника, двигая границы относительно центральной точки;
+	void NormalizeRect( ); - метод нормализует координаты
+прямоугольника, т.е. если левая сторона имеет координату больше, чем
+правая, то они меняются местами, то же самое относится к верхней и
+нижней сторонам прямоугольника;
+	void OffsetRect( int x, int y ); - метод смещает прямоугольник на
+заданную величину;
+	void Print (); - метод выводит на экран прямоугольник.
 
+	Статус: Не готово.
+	О задании: 2:54:30.
 */
 
 #include <iostream>
 
 int main()
 {
-    std::cout << "Hello World!\n";
+
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
