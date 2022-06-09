@@ -62,5 +62,5 @@ public:
 	void Print();
 };
 
-//// Метод выводит запрос на ввод координат исходного прямоугольника
-//void EnterCoordinates(CRectangle& cRect);
+// Функция выводит ошибки, в случае, выхода прямоугольника за координаты и обнуляет его координаты.
+void IsItCorrect(CRectangle& cRect);

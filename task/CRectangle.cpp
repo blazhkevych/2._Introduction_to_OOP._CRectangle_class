@@ -117,29 +117,21 @@ void CRectangle::Print()
 {
 	cout << endl << "m_leftX = " << m_leftX << ", " << "m_topY = " << m_topY << '\n'
 		<< "m_rightX = " << m_rightX << ", " << "m_bottomY = " << m_bottomY << endl;
-	/*cout << endl;
-	for (int i = 0; i < length; i++)
-	{
-
-	}*/
 }
 
-//// Метод выводит запрос на ввод координат исходного прямоугольника
-//void EnterCoordinates(CRectangle& cRect)
-//{
-//	int lexf_X{ 0 }, top_Y{ 0 }, right_X{ 0 }, bottom_Y{ 0 };
-//	cout << "Enter the coordinates of the upper left point of the rectangle (\"X\" then \"Y\"):\n"
-//		<< "lexf_X = ";
-//	cin >> lexf_X;
-//	cRect.setLeftX(lexf_X);
-//	cout << "top_Y = ";
-//	cin >> top_Y;
-//	cRect.setTopY(top_Y);
-//	cout << "Enter the coordinates of the lower right point of the rectangle (\"X\" then \"Y\"):\n"
-//		<< "right_X = ";
-//	cin >> right_X;
-//	cRect.setRightX(right_X);
-//	cout << "bottom_Y = ";
-//	cin >> bottom_Y;
-//	cRect.setBottomY(bottom_Y);
-//}
+// Функция выводит ошибки, в случае, выхода прямоугольника за координаты и обнуляет его координаты.
+void IsItCorrect(CRectangle& cRect)
+{
+	// Ошибка. Прямоугольник, находится за пределами оси координат !
+	if (cRect.getLeftX() < 0 || cRect.getTopY() < 0)
+	{
+		cRect.SetRectEmpty();
+		cout << "\nError. The rectangle is outside the coordinate axis, coordinates reset !" << endl;
+	}
+	// Ошибка. Уменьшенный прямоугольник не может быть меньше 1 х 1 х 1 х 1 !
+	if (cRect.getRightX() - cRect.getLeftX() < 1 || cRect.getBottomY() - cRect.getTopY())
+	{
+		cRect.SetRectEmpty();
+		cout << "\n// Error. The reduced rectangle cannot be smaller than 1 x 1 x 1 x 1, coordinates reset !" << endl;
+	}
+}

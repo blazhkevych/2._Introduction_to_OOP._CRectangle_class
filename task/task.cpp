@@ -32,14 +32,12 @@
 заданную величину;
 	void Print (); - метод выводит на экран прямоугольник.
 
-	Статус: Доделать "доработки".
+	Статус: Подходит ли такой метод контроля ошибок ? (в виде функции за классом).
 	О задании: 2:54:30.
 
 	Возможные доработки:
 	* предусмотреть не выход за грани координат
 	* предусмотреть предел сужения до квадрата с минимальными точками координат
-
-
 */
 
 #include <iostream>
@@ -66,24 +64,40 @@ int main()
 			>> right_X
 			>> bottom_Y;
 		cRect.SetRect(left_X, top_Y, right_X, bottom_Y);
+		cRect.NormalizeRect();
 		cout << "\nNow the coordinates of the rectangle are: ";
 		cRect.Print();
+
+		// Ширина прямоугольника;
 		cout << endl
 			<< "Width = " << cRect.Width()
 			<< endl << endl
+
+			// Высота прямоугольника;
 			<< "Height = " << cRect.Height()
 			<< endl << endl
+
+			// Метод возвращает истину, если все параметры = 0;
 			<< "All parameters are 0 ? - " << boolalpha << cRect.IsRectNull()
 			<< endl << endl
+
+			// Метод возвращает истину, если точка лежит внутри прямоугольника;
 			<< "Enter point coordinates "
 			<< "\nIn that order : "
-			<< "\n\"X\" -> \"Y\" : "
-			<< "\nx =  ";
-		cin >> x;
-		cout << "y = ";
-		cin >> y;
+			<< "\n\"X\" -> \"Y\" : ";
+		do
+		{
+			cout << "\nx =  ";
+			cin >> x;
+			cout << "y = ";
+			cin >> y;
+			if (x < 0 || y < 0)
+				cout << "\nError. The given point is beyond the coordinates, try again !" << endl;
+		} while (x < 0 || y < 0);
 		cout << "Is this point in a rectangle? - " << boolalpha << cRect.PtInRect(x, y)
 			<< endl
+
+			// Метод увеличивает размер прямоугольника, двигая границы относительно центральной точки;
 			<< "\nHow much to increase the size of the rectangle?\n"
 			<< "In that order: "
 			<< "\nleft_X -> top_Y -> right_X -> bottom_Y :\n";
@@ -92,8 +106,11 @@ int main()
 			>> right_X
 			>> bottom_Y;
 		cRect.InflateRect(left_X, top_Y, right_X, bottom_Y);
+		IsItCorrect(cRect);
 		cout << "The new rectangle coordinates are : ";
 		cRect.Print();
+
+		// Метод уменьшает размер прямоугольника, двигая границы относительно центральной точки;
 		cout << "\nHow much to decrease the size of the rectangle?\n"
 			<< "In that order : "
 			<< "\nleft_X -> top_Y -> right_X -> bottom_Y :\n";
@@ -102,14 +119,18 @@ int main()
 			>> right_X
 			>> bottom_Y;
 		cRect.DeflateRect(left_X, top_Y, right_X, bottom_Y);
+		IsItCorrect(cRect);
 		cout << "The new rectangle coordinates are : ";
 		cRect.Print();
+
+		// Метод смещает прямоугольник на заданную величину;
 		cout << "\nEnter the amount you want to shift the rectangle :"
 			<< "\nIn that order : "
 			<< "\n\"X\" -> \"Y\" :\n";
 		cin >> x
 			>> y;
 		cRect.OffsetRect(x, y);
+		IsItCorrect(cRect);
 		cout << "The new rectangle coordinates are : ";
 		cRect.Print();
 		cRect.SetRectEmpty();
