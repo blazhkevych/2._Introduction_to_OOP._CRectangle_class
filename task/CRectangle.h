@@ -15,17 +15,17 @@ public:
 	int getBottomY() { return m_bottomY; }
 
 	// Модификаторы (позволяют установить значения полей)
-	int setLeftX(int left_X) { m_leftX = left_X; }
-	int setRightX(int rightX) { m_rightX = rightX; }
-	int setTopY(int topY) { m_topY = topY; }
-	int setBottomY(int bottomY) { m_bottomY = bottomY; }
+	void setLeftX(int left_X) { m_leftX = left_X; }
+	void setRightX(int rightX) { m_rightX = rightX; }
+	void setTopY(int topY) { m_topY = topY; }
+	void setBottomY(int bottomY) { m_bottomY = bottomY; }
 
 	// Функции - члены(методы) :
 	// Конструктор по умолчанию;
-	// CRectangle();
+	CRectangle(); // Отключен, так как его заменяет Конструктор с параметрами.
 
-	// Конструктор с параметрами(лево, верх, право, низ);
-	CRectangle(int l = 1, int t = 1, int r = 3, int b = 3);
+   // Конструктор с параметрами(лево, верх, право, низ);
+	CRectangle(int l, int t, int r, int b);
 
 	// Ширина прямоугольника;
 	int Width();
@@ -62,3 +62,5 @@ public:
 	void Print();
 };
 
+//// Метод выводит запрос на ввод координат исходного прямоугольника
+//void EnterCoordinates(CRectangle& cRect);
