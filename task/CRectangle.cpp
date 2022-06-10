@@ -14,7 +14,6 @@ CRectangle::CRectangle()
 	m_bottomY = 3;
 }
 
-
 // Конструктор с параметрами(лево, верх, право, низ);
 CRectangle::CRectangle(int l, int t, int r, int b)
 {
@@ -115,11 +114,11 @@ void CRectangle::OffsetRect(int x, int y)
 // Метод выводит на экран прямоугольник.
 void CRectangle::Print()
 {
-	cout << endl << "m_leftX = " << m_leftX << ", " << "m_topY = " << m_topY << '\n'
-		<< "m_rightX = " << m_rightX << ", " << "m_bottomY = " << m_bottomY << endl;
+	cout << endl << m_leftX << ", " << m_topY << " ; "
+		<< m_rightX << ", " << m_bottomY << endl;
 }
 
-// Функции для обработки ошибок:
+// Функции обработки ошибок:
 // Ошибка. Координата прямоугольника, находится за пределами оси координат !
 bool Error_RectangleCoordOutsideAxis(CRectangle& cRect)
 {
@@ -129,7 +128,6 @@ bool Error_RectangleCoordOutsideAxis(CRectangle& cRect)
 		cRect.SetRectEmpty();
 		cout << "\nError. The coordinate of the rectangle is outside the coordinate axis, coordinates reset !"
 			<< "\nTry again !" << endl;
-
 		return true;
 	}
 	else
@@ -144,7 +142,6 @@ bool Error_RectangleIsTooSmall(CRectangle& cRect)
 		cRect.SetRectEmpty();
 		cout << "\nError. The reduced rectangle cannot be smaller than 1 x 1 x 1 x 1 !, coordinates reset !"
 			<< "\nTry again !" << endl;
-
 		return true;
 	}
 	else
@@ -158,9 +155,8 @@ bool Error_PointCoordOutsideAxis(int& pointCoordX, int& pointCoordY)
 	{
 		pointCoordX = 0;
 		pointCoordY = 0;
-		cout << "\nError. The coordinates of the specified point are outside the coordinate axis !, coordinates reset !"
+		cout << "\nError. The coordinates of the specified point are outside the coordinate axis, coordinates reset !"
 			<< "\nTry again !" << endl;
-
 		return true;
 	}
 	else

@@ -62,7 +62,7 @@ public:
 	void Print();
 };
 
-// Функции для обработки ошибок:
+// Функции обработки ошибок:
 // Ошибка. Координата прямоугольника, находится за пределами оси координат !
 bool Error_RectangleCoordOutsideAxis(CRectangle& cRect);
 
