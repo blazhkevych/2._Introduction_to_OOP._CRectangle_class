@@ -62,5 +62,12 @@ public:
 	void Print();
 };
 
-// Функция выводит ошибки, в случае, выхода прямоугольника за координаты и обнуляет его координаты.
-void IsItCorrect(CRectangle& cRect);
+// Функции для обработки ошибок:
+// Ошибка. Координата прямоугольника, находится за пределами оси координат !
+bool Error_RectangleCoordOutsideAxis(CRectangle& cRect);
+
+// Ошибка. Уменьшенный прямоугольник не может быть меньше 1 х 1 х 1 х 1 !
+bool Error_RectangleIsTooSmall(CRectangle& cRect);
+
+// Ошибка. Координаты заданной точки находится вне оси координат !
+bool Error_PointCoordOutsideAxis(int& pointCoordX, int& pointCoordY);

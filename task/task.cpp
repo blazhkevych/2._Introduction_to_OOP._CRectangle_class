@@ -32,23 +32,15 @@
 заданную величину;
 	void Print (); - метод выводит на экран прямоугольник.
 
-	Статус: Подходит ли такой метод контроля ошибок ? (в виде функции за классом). Все протестировать, включая ф-ю выдачи ошибок.
-	О задании: 2:54:30.
 
-	Возможные доработки:
-	* предусмотреть не выход за грани координат
-	* предусмотреть предел сужения до квадрата с минимальными точками координат
-	Данные для тестирования
-	3
-	2
-	8
-	5
-	по функциям
-	3
-	3
-	после обработки пряямоугольника вышедшего за пределы оси координат, обнуляются поля,
-	и на следующую функцию декреас выхожу с нулевыми полями - исправить.(возможно предложить пользователю ввод новых координат)
-	Сымитировать еще раз все ошибки из функции поиска ошибок.
+	СТАТУС : Работа над функцией обработки ошибок.
+
+	ВОЗМОЖНЫЕ ДОРАБОТКИ:
+	* добавить проверку на вводимые символы
+
+
+	ЯВНЫЕ ОШИБКИ:
+	* при увеличении прямоугольника, с него можно сделать что угодно.
 */
 
 #include <iostream>
@@ -61,21 +53,24 @@ using std::boolalpha;
 int main()
 {
 	CRectangle cRect;
-	int x{ 0 }, y{ 0 };
+	int pointCoordX{ 0 }, pointCoordY{ 0 };
 	int left_X{ 0 }, top_Y{ 0 }, right_X{ 0 }, bottom_Y{ 0 };
-
+	bool check{ false }, checkInside{ false };
 	char repeat{ 0 }; // Do you want to repeat?
 	do
 	{
-		cout << "Enter the coordinates of the rectangle"
-			<< "\nIn that order: "
-			<< "\nleft_X -> top_Y -> right_X -> bottom_Y :\n";
-		cin >> left_X;
-		cin >> top_Y;
-		cin >> right_X;
-		cin >> bottom_Y;
-		cRect.SetRect(left_X, top_Y, right_X, bottom_Y);
-		cRect.NormalizeRect();
+		do
+		{
+			cout << "Enter the coordinates of the rectangle"
+				<< "\nIn that order: "
+				<< "\nleft_X -> top_Y -> right_X -> bottom_Y :\n";
+			cin >> left_X;
+			cin >> top_Y;
+			cin >> right_X;
+			cin >> bottom_Y;
+			cRect.SetRect(left_X, top_Y, right_X, bottom_Y);
+			check = (Error_RectangleCoordOutsideAxis(cRect) || Error_RectangleIsTooSmall(cRect));
+		} while (check);
 		cout << "\nNow the coordinates of the rectangle are: ";
 		cRect.Print();
 
@@ -90,34 +85,52 @@ int main()
 
 			// Метод возвращает истину, если все параметры = 0;
 			<< "All parameters are 0 ? - " << boolalpha << cRect.IsRectNull()
-			<< endl << endl
+			<< endl << endl;
 
-			// Метод возвращает истину, если точка лежит внутри прямоугольника;
-			<< "Enter point coordinates "
-			<< "\nIn that order : "
-			<< "\n\"X\" -> \"Y\" : ";
+		// Метод возвращает истину, если точка лежит внутри прямоугольника;
 		do
 		{
+			cout << "Enter point coordinates "
+				<< "\nIn that order : "
+				<< "\n\"X\" -> \"Y\" : ";
 			cout << "\nx =  ";
-			cin >> x;
+			cin >> pointCoordX;
 			cout << "y = ";
-			cin >> y;
-			if (x < 0 || y < 0)
-				cout << "\nError. The given point is beyond the coordinates, try again !" << endl;
-		} while (x < 0 || y < 0);
-		cout << "Is this point in a rectangle? - " << boolalpha << cRect.PtInRect(x, y)
-			<< endl
+			cin >> pointCoordY;
+			check = Error_PointCoordOutsideAxis(pointCoordX, pointCoordY);
+		} while (check);
+		cout << "Is this point in a rectangle? - " << boolalpha << cRect.PtInRect(pointCoordX, pointCoordY)
+			<< endl;
 
-			// Метод увеличивает размер прямоугольника, двигая границы относительно центральной точки;
-			<< "\nHow much to increase the size of the rectangle?\n"
-			<< "In that order: "
-			<< "\nleft_X -> top_Y -> right_X -> bottom_Y :\n";
-		cin >> left_X;
-		cin >> top_Y;
-		cin >> right_X;
-		cin >> bottom_Y;
-		cRect.InflateRect(left_X, top_Y, right_X, bottom_Y);
-		IsItCorrect(cRect);
+		// Метод увеличивает размер прямоугольника, двигая границы относительно центральной точки;
+		do
+		{
+			cout << "\nHow much to increase the size of the rectangle?\n"
+				<< "In that order: "
+				<< "\nleft_X -> top_Y -> right_X -> bottom_Y :\n";
+			cin >> left_X;
+			cin >> top_Y;
+			cin >> right_X;
+			cin >> bottom_Y;
+			cRect.InflateRect(left_X, top_Y, right_X, bottom_Y);
+			check = (Error_RectangleCoordOutsideAxis(cRect) || Error_RectangleIsTooSmall(cRect));
+			if (check)
+			{
+				do
+				{
+					cout << "Enter the coordinates of the rectangle"
+						<< "\nIn that order: "
+						<< "\nleft_X -> top_Y -> right_X -> bottom_Y :\n";
+					cin >> left_X;
+					cin >> top_Y;
+					cin >> right_X;
+					cin >> bottom_Y;
+					cRect.SetRect(left_X, top_Y, right_X, bottom_Y);
+					checkInside = (Error_RectangleCoordOutsideAxis(cRect) || Error_RectangleIsTooSmall(cRect));
+
+				} while (checkInside);
+			}
+		} while (check);
 		cout << "The new rectangle coordinates are : ";
 		cRect.Print();
 
@@ -130,7 +143,9 @@ int main()
 		cin >> right_X;
 		cin >> bottom_Y;
 		cRect.DeflateRect(left_X, top_Y, right_X, bottom_Y);
-		IsItCorrect(cRect);
+
+		//IsItCorrect(cRect, left_X, top_Y, right_X, bottom_Y);
+
 		cout << "The new rectangle coordinates are : ";
 		cRect.Print();
 
@@ -138,10 +153,10 @@ int main()
 		cout << "\nEnter the amount you want to shift the rectangle :"
 			<< "\nIn that order : "
 			<< "\n\"X\" -> \"Y\" :\n";
-		cin >> x;
-		cin >> y;
-		cRect.OffsetRect(x, y);
-		IsItCorrect(cRect);
+		cin >> pointCoordX;
+		cin >> pointCoordY;
+		cRect.OffsetRect(pointCoordX, pointCoordY);
+		//IsItCorrect(cRect, left_X, top_Y, right_X, bottom_Y);
 		cout << "The new rectangle coordinates are : ";
 		cRect.Print();
 		cRect.SetRectEmpty();

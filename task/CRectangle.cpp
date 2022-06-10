@@ -119,20 +119,50 @@ void CRectangle::Print()
 		<< "m_rightX = " << m_rightX << ", " << "m_bottomY = " << m_bottomY << endl;
 }
 
-// Функция выводит ошибки, в случае, выхода прямоугольника за координаты и обнуляет его координаты.
-void IsItCorrect(CRectangle& cRect)
+// Функции для обработки ошибок:
+// Ошибка. Координата прямоугольника, находится за пределами оси координат !
+bool Error_RectangleCoordOutsideAxis(CRectangle& cRect)
 {
-	// Ошибка. Прямоугольник, находится за пределами оси координат !
-	if (cRect.getLeftX() < 0 || cRect.getTopY() < 0)
+	// Ошибка. Координата прямоугольника, находится за пределами оси координат !
+	if (cRect.getLeftX() < 0 || cRect.getTopY() < 0 || cRect.getRightX() < 0 || cRect.getBottomY() < 0)
 	{
 		cRect.SetRectEmpty();
-		cout << "\nError. The rectangle is outside the coordinate axis, coordinates reset !" << endl;
-		return;
+		cout << "\nError. The coordinate of the rectangle is outside the coordinate axis, coordinates reset !"
+			<< "\nTry again !" << endl;
+
+		return true;
 	}
-	// Ошибка. Уменьшенный прямоугольник не может быть меньше 1 х 1 х 1 х 1 !
+	else
+		return false;
+}
+
+// Ошибка. Уменьшенный прямоугольник не может быть меньше 1 х 1 х 1 х 1 !
+bool Error_RectangleIsTooSmall(CRectangle& cRect)
+{
 	if (cRect.getRightX() - cRect.getLeftX() < 1 || cRect.getBottomY() - cRect.getTopY() < 1)
 	{
 		cRect.SetRectEmpty();
-		cout << "\n// Error. The reduced rectangle cannot be smaller than 1 x 1 x 1 x 1, coordinates reset !" << endl;
+		cout << "\nError. The reduced rectangle cannot be smaller than 1 x 1 x 1 x 1 !, coordinates reset !"
+			<< "\nTry again !" << endl;
+
+		return true;
 	}
+	else
+		return false;
+}
+
+// Ошибка. Координаты заданной точки находится вне оси координат !
+bool Error_PointCoordOutsideAxis(int& pointCoordX, int& pointCoordY)
+{
+	if (pointCoordX < 0 || pointCoordY < 0)
+	{
+		pointCoordX = 0;
+		pointCoordY = 0;
+		cout << "\nError. The coordinates of the specified point are outside the coordinate axis !, coordinates reset !"
+			<< "\nTry again !" << endl;
+
+		return true;
+	}
+	else
+		return false;
 }
